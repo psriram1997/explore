@@ -7,6 +7,9 @@ var mongoose              = require("mongoose"),
     LocalStrategy         = require("passport-local"),
     methodOverride        = require("method-override"),
     flash                 = require("express-flash");
+    
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 //==========requiring models=========  
 var  Campground = require("./models/campground"),
      Comment    = require("./models/comment"),
@@ -18,20 +21,27 @@ var  Campground = require("./models/campground"),
 var campgroundRoutes  = require("./routes/campground"),
     indexRoutes       = require("./routes/index"),
     commentRoutes     = require("./routes/comment")
-var DATABASEURL;
 
+// var DATABASEURL;
+// mongoose.connect(process.env.DATABASEURL);
 
-mongoose.connect(process.env.DATABASEURL);
+mongoose.connect("mongodb://localhost/yelp_camp");
+
 app.use(express.static(__dirname+"/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 app.use(methodOverride("_method"));
 app.use(flash());
-app.use(require("express-session")({
-    secret:"i love mom",
+app.use(session({
+    secret: 'keyboard cat',
     resave: false,
-    saveUninitialized:false
+    saveUninitialized: false,    
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+
+cookie:{maxAge: 180 * 60 * 1000}
 }));
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
