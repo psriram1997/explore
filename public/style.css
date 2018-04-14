@@ -1,0 +1,28 @@
+.button{
+    display:inline-block;
+    text-transform : uppercase;
+    margin-right: 1rem;
+    color:white !important;
+}
+
+.comment-section p:nth-child(2n) {
+   
+    margin-bottom:1rem;
+    
+}
+.comment-section p:nth-child(2n+1) {
+    
+    margin-bottom:0;
+    
+}
+
+.img-thumbnail img{
+    max-width: 100%;
+    height :auto;
+}
+
+#indexHeader{
+    color:#343a40;
+    margin:1rem auto;
+    text-align: center;
+}

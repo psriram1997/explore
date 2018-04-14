@@ -1,0 +1,40 @@
+<% include ../partials/header.ejs %>
+<div class="container">
+    <div class="img-thumbnail">
+        <h1 class="text-capitalize text-center"><%= campground.name %></h1>
+        <div class="container">
+            <img src="<%= campground.url %>"></img>
+            <p><strong><em>submitted by - <%=campground.author.username %></em></strong></p>
+            <p><%=campground.desc %></p>
+            <!--<a href="/campgrounds" class="btn btn-primary btn-sm">Go Back</a>-->
+            
+            <% if(currentUser&&currentUser.equals(campground.author.id)){%>
+            <a href="/campgrounds/<%=campground._id%>/edit" class="button btn btn-warning btn-sm">edit</a>
+            
+            <form class="button"  action="/campgrounds/<%=campground._id%>?_method=delete" method="post">
+                <input type="submit" value="delete" class="button btn btn-danger btn-sm">
+            </form>
+            <% } %>
+        </div>
+        
+     </div>
+    <h2>Comments :-</h2>
+    <div >
+        <a class="btn text-uppercase btn-success" href="/campgrounds/<%=campground._id%>/comments/new">comment</a>
+    </div>
+    <div class="comment-section">
+        <% campground.comments.forEach(function(comment){ %>
+            <p class="text-capitalize"><strong><%=comment.author.username%></strong></p>
+            <p> <%=comment.text%></p>
+            <% if(currentUser&&currentUser.equals(comment.author.id)){%>
+            <a href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit" class="button btn btn-warning btn-sm">edit</a>
+            <form class="button" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=delete" method="post">
+                <input type="submit" value="delete" class="button btn btn-danger btn-sm">
+            </form>
+            <% } %>
+        <% });%>
+    </div>
+    
+</div>
+
+<% include ../partials/footer.ejs %>

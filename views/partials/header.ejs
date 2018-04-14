@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>YelpCamp</title>
+       <link rel="stylesheet" type="text/css" href="/style.css"></link>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="navbar navbar-expand-sm navbar-dark bg-dark">
+            
+            <a href="/" class="navbar-brand">yelp_camp</a>
+            
+            <ul class="navbar-nav ml-auto " >
+               <div class="nav justify-content-right">
+                   <% if(!currentUser){ %>
+                    <li class="mr-3 nav-item ">
+                        <a href="/register" class="nav-link">signUp</a> 
+                    </li>
+                    <li class="mr-3 nav-item ">
+                       <a href="/login" class="nav-link">login</a> 
+                    </li>
+                   
+                  <% }else{ %>
+                  <li class="nav-item ">
+                       <span class="navbar-text mr-5">signed in as <%=currentUser.username %></span>
+                  </li>
+                     
+                     <li class="mr-3 nav-item">
+                        <a href="/logout" class="nav-link ">logout</a> 
+                    </li>
+                  <% } %>
+                  
+               </div>
+              
+            </ul>
+         </div>
+        <div class="container">
+            
+            <% if(sucess&&sucess.length>0){  %>
+            <div class="alert alert-success" role="alert">
+              <%= sucess %>
+            </div>
+            <% } %>
+             <% if(error&&error.length>0){  %>
+            <div class="alert alert-danger" role="alert">
+             <%= error %>
+            </div> 
+            <% } %>
+        </div>    
+        
+        
+        
